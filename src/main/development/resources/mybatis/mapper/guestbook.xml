@@ -4,13 +4,13 @@
 
 	<select id="getlist" resultType="guestbookvo">
 	<![CDATA[
-		select no, name, contents, to_char(reg_date,'yyyy-mm-dd') from guestbook order by reg_date desc
+		select no, name, contents, to_char(reg_date,'yyyy-mm-dd') as regDate from guestbook order by reg_date desc
 	]]>
 	</select>
 	
 	<select id="getlist2" parameterType="long" resultType="guestbookvo">
 	<![CDATA[
-		select no, name, contents, to_char(reg_date,'yyyy-mm-dd HH24:MI:SS')
+		select no, name, contents, to_char(reg_date,'yyyy-mm-dd') as regDate
 		from guestbook 
 		
 	]]>

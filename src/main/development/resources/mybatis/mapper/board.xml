@@ -35,8 +35,8 @@
 	
 	<select id="getList" parameterType="map" resultType="boardvo" >
 		<![CDATA[
-		select isexist,no,member_no as memberNo, title, hit,to_char(reg_date,'yyyy-mm-dd HH24:MI:SS') as reg_date,(select name from user where no = b.member_no) as memberName,contents,originfilename,savefilename,depth from board b where title like concat('%',#{kwd},'%') order by group_no desc,order_no desc 
-		limit #{start},#{countperpage}
+		select isexist,no,member_no as memberNo, title, hit,to_char(reg_date,'yyyy-mm-dd HH24:MI:SS') as reg_date,(select name from member where no = b.member_no) as memberName,contents,originfilename,savefilename,depth from board b where title like concat('%',#{kwd},'%') order by group_no desc,order_no desc 
+		limit #{countperpage} offset #{start}
 		]]>
 	</select>
 	
@@ -49,13 +49,13 @@
 	
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
-		insert into board values(default,#{title},0,now(),#{contents},(select ifnull(max(b1.group_no),0)+1 from board b1),1,0,#{originfilename},#{savefilename},'exist',#{memberNo})
+		insert into board values(default,#{title},0,now(),#{contents},(select coalesce(max(b1.group_no),0)+1 from board b1),1,0,#{originfilename},#{savefilename},'exist',#{memberNo})
 		]]>
 		
 	</insert>
 	
 	<select id="get" parameterType="string" resultType="boardvo">
-		select no,title,hit,to_char(reg_date,'yyyy-mm-dd HH24:MI:SS') as reg_date,contents,group_no,order_no,depth,member_no as memberNo, (select name from user where no = b.member_no) as memberName,originfilename,savefilename from board b where no=#{no}  order by reg_date desc
+		select no,title,hit,to_char(reg_date,'yyyy-mm-dd HH24:MI:SS') as reg_date,contents,group_no,order_no,depth,member_no as memberNo, (select name from member where no = b.member_no) as memberName,originfilename,savefilename from board b where no=#{no}  order by reg_date desc
 	</select>
 	
 	<update id="updatehit" parameterType="string">
