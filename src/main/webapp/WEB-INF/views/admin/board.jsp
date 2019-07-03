@@ -8,6 +8,7 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/admin/main.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<div id="container">
@@ -17,7 +18,7 @@
 				<div id="site-form">
 					
 					<h2>게시판 관리 페이지</h2>				
-
+					
 				</div>
 			</div>
 			<c:import url="/WEB-INF/views/admin/include/navigation.jsp">
